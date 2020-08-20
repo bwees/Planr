@@ -1,6 +1,6 @@
 # Steel City Hacks Project
 
-**By:**
+*By:*
 - Brandon Wees
 - Ryan Scott
 - Matt Farmar
