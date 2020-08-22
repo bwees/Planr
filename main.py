@@ -19,14 +19,14 @@ def widgetData():
     assignment = Query()
     dueToday = db.search(assignment.date==current_date)
 
-    dueToday = [dueToday.remove(x) for x in dueToday if x["status"] == 2]
+    dueToday = [dueToday.remove(x) for x in dueToday if x["status"] == Status.complete]
 
     totalMinsToday = 0
     for assignment in dueToday:
         totalMinsToday+=assignment["duration"]
     
     dueTomorrow = db.search(assignment.date==tomorrow_date)
-    dueTomorrow = [dueTomorrow.remove(x) for x in dueTomorrow if x["status"] == 2]
+    dueTomorrow = [dueTomorrow.remove(x) for x in dueTomorrow if x["status"] == Status.complete]
     
     return dueToday, dueTomorrow, totalMinsToday
 
