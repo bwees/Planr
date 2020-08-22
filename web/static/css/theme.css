@@ -99,7 +99,7 @@ p {
 
 /* ----- Typography ----- */
 body {
-    font-family: "Poppins", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     font-weight: 400;
     font-size: 16px;
     line-height: 1.625;
@@ -1839,7 +1839,7 @@ section {
 }
 
 .sub-header-mobile-2 .header__tool .header-button-item {
-    color: #a9b3c9;
+    color: #32e0c4;
 }
 
 .sub-header-mobile-2 .header__tool .account-wrap .account-item--style2 .content a {
@@ -2974,7 +2974,7 @@ section {
 }
 
 .header4-wrap .header__tool .header-button-item {
-    color: #a9b3c9;
+    color: #32e0c4;
 }
 
 @media (max-width: 991px) {
