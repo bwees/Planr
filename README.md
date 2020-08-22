@@ -7,6 +7,8 @@ Time management can be diffuicult to grasp and enforce in a distracting world. P
 
 Credits
 ------
+
+
 - [bwees](http://github.com/bwees)
 - [mfarmar](http://github.com/mfarmar)
 - [rydj082](http://github.com/rydj082)
