@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-seapp = Flask(__name__, template_folder="web")
+app = Flask(__name__, template_folder="web")
 
 @app.route('/')
 def hello_world():
