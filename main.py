@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from tinydb import TinyDB, Query
 from assignment import *
-import datetime
+from datetime import datetime
 
 db = TinyDB('planr.json')
 
@@ -71,13 +71,21 @@ def newAssignment():
 
 
 def widgetData():
-    date_time_str = DateTime.Now.toString(MM/dd/yyyy)
+    current_date = datetime.now().strftime("%Y-%m-%d")
+    tomorrow_date = (datetime.date.today()+datetime.timedelta(days=1)).strftime("%Y-%m-%d")
     assignment = Query()
-    dueToday = []
-    dueTomorrow = []
-    dueLater = []
-    dueToday.append(db.search(assignment.date==))
-    return 
+    dueToday = db.search(assignment.date==current_date)
+
+    dueToday = [dueToday.remove(x) for x in dueToday if x["status"] == 2]
+
+    totalMinsToday = 0
+    for assignment in dueToday:
+        totalMinsToday+=assignment["duration"]
+    
+    dueTomorrow = db.search(assignment.date==tomorrow_date)
+    dueTomorrow = [dueTomorrow.remove(x) for x in dueTomorrow if x["status"] == 2]
+    
+    return dueToday, dueTomorrow, totalMinsToday
 
 if __name__ == "__main__":
     app.run()
