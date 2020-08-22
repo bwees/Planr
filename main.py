@@ -13,6 +13,24 @@ def getAssignmentByDate(dateIn):
     return db.search(where("dueDate")==dateIn)
     
 
+def widgetData():
+    current_date = datetime.now().strftime("%Y-%m-%d")
+    tomorrow_date = (datetime.date.today()+datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+    assignment = Query()
+    dueToday = db.search(assignment.date==current_date)
+
+    dueToday = [dueToday.remove(x) for x in dueToday if x["status"] == 2]
+
+    totalMinsToday = 0
+    for assignment in dueToday:
+        totalMinsToday+=assignment["duration"]
+    
+    dueTomorrow = db.search(assignment.date==tomorrow_date)
+    dueTomorrow = [dueTomorrow.remove(x) for x in dueTomorrow if x["status"] == 2]
+    
+    return dueToday, dueTomorrow, totalMinsToday
+
+
 def calcRings(totalTime,activityTime,workTime):
     if activityTime+workTime>totalTime:
         return [1], ["Time Used"]
@@ -47,6 +65,7 @@ def index():
 
     return render_template("index.html", **tags)
 
+
 @app.route("/assignments")
 def assignment_list():
 
@@ -55,6 +74,7 @@ def assignment_list():
     print(today_due_list)
 
     return render_template("assignment_list.html")
+
 
 @app.route('/add_assignment', methods=['GET', 'POST'])
 def newAssignment():
@@ -74,24 +94,6 @@ def newAssignment():
     else:
         return render_template("add_assignment.html")
 
-
-
-def widgetData():
-    current_date = datetime.now().strftime("%Y-%m-%d")
-    tomorrow_date = (datetime.date.today()+datetime.timedelta(days=1)).strftime("%Y-%m-%d")
-    assignment = Query()
-    dueToday = db.search(assignment.date==current_date)
-
-    dueToday = [dueToday.remove(x) for x in dueToday if x["status"] == 2]
-
-    totalMinsToday = 0
-    for assignment in dueToday:
-        totalMinsToday+=assignment["duration"]
-    
-    dueTomorrow = db.search(assignment.date==tomorrow_date)
-    dueTomorrow = [dueTomorrow.remove(x) for x in dueTomorrow if x["status"] == 2]
-    
-    return dueToday, dueTomorrow, totalMinsToday
 
 if __name__ == "__main__":
     app.run()
