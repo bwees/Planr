@@ -13,7 +13,9 @@ def index():
         "time_today": "25-30",
         "today_due": 4,
         "tmrw_due": 33,
-        "nxt_due": 4
+        "nxt_due": 4,
+        "pie_data": [20,40,60,80],
+        "pie_tags": ['sadas', 'asdasd', 'Asdasd']
     }
 
     return render_template("index.html", **tags)
