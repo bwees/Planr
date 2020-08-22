@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from tinydb import TinyDB, Query
 from assignment import *
+import datetime
 
 db = TinyDB('planr.json')
 
@@ -60,6 +61,15 @@ def htmlString(tags):
         if tag == "Free Time":
             htmlString+= '<div class="chart-note mr-0 d-block"><span class="dot dot--green"></span><span>Free Time</span></div>'
     return htmlString
+
+def widgetData():
+    date_time_str = DateTime.Now.toString(MM/dd/yyyy)
+    assignment = Query()
+    dueToday = []
+    dueTomorrow = []
+    dueLater = []
+    dueToday.append(db.search(assignment.date==))
+    return 
 
 if __name__ == "__main__":
     app.run()
