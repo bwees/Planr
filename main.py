@@ -39,5 +39,7 @@ def newAssignment():
     else:
         return render_template("addassignment.html")
 
+
+
 if __name__ == "__main__":
     app.run()
