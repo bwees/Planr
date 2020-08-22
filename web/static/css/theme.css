@@ -14654,3 +14654,27 @@ section {
 .vue-lists ul, .vue-lists ol {
     padding-left: 30px;
 }
+
+.btn-primary-red{
+    color: #fff;
+    background-color: #ff453a;
+    border-color: #ff453a;
+}
+
+.btn-primary-red:hover{
+    color: #fff;
+    background-color: #c0362f;
+    border-color: #c0362f;
+}
+
+.btn-primary-green{
+    color: #fff;
+    background-color: #34c734;
+    border-color: #34c734;
+}
+
+.btn-primary-green:hover{
+    color: #fff;
+    background-color: #2ba72b;
+    border-color: #2ba72b;
+}

@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from tinydb import TinyDB, Query, where
 from assignment import *
-from flask_table import Table, Col
+from flask_table import Table, Col, ButtonCol
 from datetime import datetime
 
 db = TinyDB('planr.json')
@@ -60,6 +60,10 @@ class AssignmentTable(Table):
     typeName = Col('Type')
     className = Col('Class')
     status = Col('Status')
+    edit = ButtonCol('Edit','edit_assignment', url_kwargs=dict(uuid="uuid"), td_html_attrs = {'class': 'btn-primary text-white text-bold'})
+    delete = ButtonCol('Delete','edit_assignment', url_kwargs=dict(uuid="uuid"), td_html_attrs = {'class': 'btn-primary-red text-white text-bold'})
+    done = ButtonCol('Mark As Done','edit_assignment', url_kwargs=dict(uuid="uuid"), td_html_attrs = {'class': 'btn-primary-green text-white text-bold'})
+
 
 
 @app.route('/')
@@ -109,6 +113,9 @@ def newAssignment():
     else:
         return render_template("add_assignment.html")
 
+@app.route('/edit_assignment/<string:uuid>', methods=['GET', 'POST'])
+def edit_assignment(uuid):
+    return uuid
 
 if __name__ == "__main__":
     app.run()
