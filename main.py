@@ -7,7 +7,15 @@ app = Flask(__name__, template_folder="web/", static_folder="web/static/")
 
 @app.route('/')
 def hello_world():
-    return render_template("index.html")
+
+    tags = {
+        "today_due": 5,
+        "tmrw_due": 4,
+        "nxt_week_due": 33,
+        "time_today": 25-30
+    }
+
+    return render_template("index.html", **tags)
 
 if __name__ == "__main__":
     app.run()
