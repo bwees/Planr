@@ -7,6 +7,31 @@ db = TinyDB('planr.json')
 
 app = Flask(__name__, template_folder="web/", static_folder="web/static/")
 
+
+def getAssignmentByDate(date):
+    assignment = Query()
+    return db.search(assignment.date==date)
+    
+
+def calcRings(totalTime,activityTime,workTime):
+    if activityTime+workTime>totalTime:
+        return [1], ["Time Used"]
+    else:
+        return [workTime,activityTime,totalTime-activityTime-workTime], ["Work Time", "Activity Time", "Free Time"]
+
+
+def htmlString(tags):
+    htmlString = ""
+    for tag in tags:
+        if tag == "Work Time":
+            htmlString += '<div class="chart-note mr-0 d-block"><span class="dot dot--blue"></span><span>Work Time</span></div>'
+        if tag == "Activity Time":
+            htmlString+= '<div class="chart-note mr-0 d-block"><span class="dot dot--red"></span><span>Activity Time</span></div>'
+        if tag == "Free Time":
+            htmlString+= '<div class="chart-note mr-0 d-block"><span class="dot dot--green"></span><span>Free Time</span></div>'
+    return htmlString
+
+
 @app.route('/')
 def index():
 
@@ -14,7 +39,10 @@ def index():
         "time_today": "25-30",
         "today_due": 4,
         "tmrw_due": 33,
-        "nxt_due": 4
+        "nxt_due": 4,
+        "pie_data": calcRings(90, 30, 100)[0],
+        "pie_tags": calcRings(90, 30, 100)[1],
+        "pie_dots": ["r", "f", "f"]
     }
 
     return render_template("index.html", **tags)
@@ -40,27 +68,7 @@ def newAssignment():
     else:
         return render_template("add_assignment.html")
 
-def getAssignmentByDate(date):
-    assignment = Query()
-    return db.search(assignment.date==date)
-    
 
-def calcRings(totalTime,activityTime,workTime):
-    if activityTime+workTime>totalTime:
-        return [1], ["Time Used"]
-    else:
-        return [workTime,activityTime,totalTime-activityTime-workTime], ["Work Time", "Activity Time", "Free Time"]
-
-def htmlString(tags):
-    htmlString = ""
-    for tag in tags:
-        if tag == "Work Time":
-            htmlString += '<div class="chart-note mr-0 d-block"><span class="dot dot--blue"></span><span>Work Time</span></div>'
-        if tag == "Activity Time":
-            htmlString+= '<div class="chart-note mr-0 d-block"><span class="dot dot--red"></span><span>Activity Time</span></div>'
-        if tag == "Free Time":
-            htmlString+= '<div class="chart-note mr-0 d-block"><span class="dot dot--green"></span><span>Free Time</span></div>'
-    return htmlString
 
 def widgetData():
     date_time_str = DateTime.Now.toString(MM/dd/yyyy)

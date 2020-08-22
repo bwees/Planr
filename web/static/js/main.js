@@ -341,7 +341,7 @@
           datasets: [
             {
               label: "My First dataset",
-              data: [60, 40],
+              data: pieData,
               backgroundColor: [
                 '#00b5e9',
                 '#fa4251'
@@ -359,10 +359,7 @@
               ]
             }
           ],
-          labels: [
-            'Products',
-            'Services'
-          ]
+          labels: pieTags
         },
         options: {
           maintainAspectRatio: false,
