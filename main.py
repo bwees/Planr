@@ -10,7 +10,6 @@ app = Flask(__name__, template_folder="web/", static_folder="web/static/")
 
 
 def getAssignmentByDate(dateIn):
-    assignment = Query()
     return db.search(where("dueDate")==dateIn)
     
 
@@ -50,8 +49,6 @@ def index():
 
 @app.route("/assignments")
 def assignment_list():
-
-    assignment = Query()
 
     today_due_list = getAssignmentByDate(datetime.now().strftime("%Y-%m-%d"))
 
