@@ -76,5 +76,22 @@ def newAssignment():
 
 
 
+def widgetData():
+    current_date = datetime.now().strftime("%Y-%m-%d")
+    tomorrow_date = (datetime.date.today()+datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+    assignment = Query()
+    dueToday = db.search(assignment.date==current_date)
+
+    dueToday = [dueToday.remove(x) for x in dueToday if x["status"] == 2]
+
+    totalMinsToday = 0
+    for assignment in dueToday:
+        totalMinsToday+=assignment["duration"]
+    
+    dueTomorrow = db.search(assignment.date==tomorrow_date)
+    dueTomorrow = [dueTomorrow.remove(x) for x in dueTomorrow if x["status"] == 2]
+    
+    return dueToday, dueTomorrow, totalMinsToday
+
 if __name__ == "__main__":
     app.run()
