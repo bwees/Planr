@@ -344,11 +344,13 @@
               data: pieData,
               backgroundColor: [
                 '#00b5e9',
-                '#fa4251'
+                '#fa4251',
+                "#00ad5f"
               ],
               hoverBackgroundColor: [
                 '#00b5e9',
-                '#fa4251'
+                '#fa4251',
+                "#00ad5f"
               ],
               borderWidth: [
                 0, 0
