@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
-from tinydb import TinyDB, Query
+from tinydb import TinyDB, Query, where
 from assignment import *
+from flask_table import Table, Col
 from datetime import datetime
 
 db = TinyDB('planr.json')
@@ -8,9 +9,9 @@ db = TinyDB('planr.json')
 app = Flask(__name__, template_folder="web/", static_folder="web/static/")
 
 
-def getAssignmentByDate(date):
+def getAssignmentByDate(dateIn):
     assignment = Query()
-    return db.search(assignment.date==date)
+    return db.search(where("dueDate")==dateIn)
     
 
 def calcRings(totalTime,activityTime,workTime):
@@ -47,6 +48,17 @@ def index():
 
     return render_template("index.html", **tags)
 
+@app.route("/assignments")
+def assignment_list():
+
+    assignment = Query()
+
+    today_due_list = getAssignmentByDate(datetime.now().strftime("%Y-%m-%d"))
+
+    print(today_due_list)
+
+    return render_template("assignment_list.html")
+
 @app.route('/add_assignment', methods=['GET', 'POST'])
 def newAssignment():
     if request.method == 'POST':
@@ -59,12 +71,9 @@ def newAssignment():
         attachments = request.form.get("attachments")
 
         assignment = Assignment(assignmentName,className,typeName,dueDate,notes,duration,attachments)
-
-        print(assignment.dictionary())
-
         db.insert(assignment.dictionary())
 
-        return redirect(url_for("index"))
+        return redirect("/assignments")
     else:
         return render_template("add_assignment.html")
 
