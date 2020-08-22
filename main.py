@@ -17,10 +17,8 @@ def index():
 
     return render_template("index.html", **tags)
 
-@app.route('/new', methods=['GET', 'POST'])
+@app.route('/add_assignment', methods=['GET', 'POST'])
 def newAssignment():
-
-    print(request.form["name"])
 
     return render_template("addassignment.html")
 
