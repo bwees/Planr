@@ -6,6 +6,20 @@ class Status:
     inProgress = 1
     complete = 2
 
+def assignmentFromDictionary(dictionaryForm):
+
+    assignmentName = dictionaryForm["assignmentName"]
+    className = dictionaryForm["className"]
+    typeName = dictionaryForm["typeName"]
+    dueDate = dictionaryForm["dueDate"]
+    attachments = dictionaryForm["attachments"]
+    notes = dictionaryForm["notes"]
+    duration = dictionaryForm["duration"]
+    uuid = dictionaryForm["uuid"]
+
+    return Assignment(assignmentName, className, typeName, dueDate, notes, duration, attachments, uuid)
+
+
 class Assignment:
     def __init__(self, assignmentName, className, typeName, dueDate, notes, duration, attachments = [], status=Status.notStarted, uuid=uuid1()):
         self.assignmentName = assignmentName
