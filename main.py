@@ -6,6 +6,19 @@ db = TinyDB('planr.json')
 
 app = Flask(__name__, template_folder="web/", static_folder="web/static/")
 
+
+def getAssignmentByDate(date):
+    assignment = Query()
+    return db.search(assignment.date==date)
+    
+
+def calcRings(totalTime,activityTime,workTime):
+    if activityTime+workTime>totalTime:
+        return [1], ["Time Used"]
+    else:
+        return [workTime,activityTime,totalTime-activityTime-workTime], ["Work Time", "Activity Time", "Free Time"]
+
+
 @app.route('/')
 def index():
 
@@ -14,8 +27,9 @@ def index():
         "today_due": 4,
         "tmrw_due": 33,
         "nxt_due": 4,
-        "pie_data": [20,40,60,80],
-        "pie_tags": ['sadas', 'asdasd', 'Asdasd']
+        "pie_data": calcRings(90, 30, 100)[0],
+        "pie_tags": calcRings(90, 30, 100)[1],
+        "pie_dots": ["r", "f", "f"]
     }
 
     return render_template("index.html", **tags)
@@ -40,17 +54,6 @@ def newAssignment():
         return redirect(url_for("index"))
     else:
         return render_template("add_assignment.html")
-
-def getAssignmentByDate(date):
-    assignment = Query()
-    return db.search(assignment.date==date)
-    
-
-def calcRings(totalTime,activityTime,workTime):
-    if activityTime+workTime>totalTime:
-        return [1], ["Time Used"]
-    else:
-        return [workTime,activityTime,totalTime-activityTime-workTime], ["Work Time", "Activity Time", "Free Time"]
 
 if __name__ == "__main__":
     app.run()
