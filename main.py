@@ -55,5 +55,27 @@ def newAssignment():
     else:
         return render_template("add_assignment.html")
 
+def getAssignmentByDate(date):
+    assignment = Query()
+    return db.search(assignment.date==date)
+    
+
+def calcRings(totalTime,activityTime,workTime):
+    if activityTime+workTime>totalTime:
+        return [1], ["Time Used"]
+    else:
+        return [workTime,activityTime,totalTime-activityTime-workTime], ["Work Time", "Activity Time", "Free Time"]
+
+def htmlString(tags):
+    htmlString = ""
+    for tag in tags:
+        if tag == "Work Time":
+            htmlString += '<div class="chart-note mr-0 d-block"><span class="dot dot--blue"></span><span>Work Time</span></div>'
+        if tag == "Activity Time":
+            htmlString+= '<div class="chart-note mr-0 d-block"><span class="dot dot--red"></span><span>Activity Time</span></div>'
+        if tag == "Free Time":
+            htmlString+= '<div class="chart-note mr-0 d-block"><span class="dot dot--green"></span><span>Free Time</span></div>'
+    return htmlString
+
 if __name__ == "__main__":
     app.run()
