@@ -23,3 +23,18 @@ class Assignment:
 
     def saveAttachment(self, file):
         file.save("/attachments/" + self.uuid + "/"+ uuid1().hex)
+
+    def dictionary(self):
+
+        dictionaryForm = {}
+
+        dictionaryForm["assignmentName"] = self.assignmentName
+        dictionaryForm["className"] = self.className
+        dictionaryForm["typeName"] = self.typeName
+        dictionaryForm["dueDate"] = self.dueDate
+        dictionaryForm["attachments"] = self.attachments 
+        dictionaryForm["notes"] = self.notes
+        dictionaryForm["duration"] = self.duration
+        dictionaryForm["uuid"] = self.uuid
+
+        return dictionaryForm
