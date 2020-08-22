@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from tinydb import TinyDB, Query
+from assignment import *
 
 db = TinyDB('planr.json')
 
@@ -17,22 +18,26 @@ def index():
 
     return render_template("index.html", **tags)
 
-@app.route('/new', methods=['GET', 'POST'])
-
+@app.route('/add_assignment', methods=['GET', 'POST'])
 def newAssignment():
-    assignmentName = request.form["assignmentName"]
-    className = request.form["className"]
-    typeName = request.form["typeName"]
-    dueDate = request.form["dueDate"]
-    notes = request.form["notes"]
-    duration = request.form["duration"]
-    attachments = request.form["attachments"]
+    if request.method == 'POST':
+        assignmentName = request.form.get("name")
+        className = request.form.get("class")
+        typeName = request.form.get("type")
+        dueDate = request.form.get("date")
+        notes = request.form.get("notes")
+        duration = request.form.get("duration")
+        attachments = request.form.get("attachments")
 
-    assignment = Assignment(assignmentName,className,typeName,dueDate,notes,duration,attachments)
+        assignment = Assignment(assignmentName,className,typeName,dueDate,notes,duration,attachments)
 
-    tinydb.insert(assignment.dictionary)
+        print(assignment.dictionary())
 
-    return render_template("addassignment.html")
+        db.insert(assignment.dictionary())
+
+        return redirect(url_for("index"))
+    else:
+        return render_template("addassignment.html")
 
 if __name__ == "__main__":
-    app.run()``
+    app.run()

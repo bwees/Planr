@@ -16,8 +16,9 @@ def assignmentFromDictionary(dictionaryForm):
     notes = dictionaryForm["notes"]
     duration = dictionaryForm["duration"]
     uuid = dictionaryForm["uuid"]
+    status = dictionaryForm["status"]
 
-    return Assignment(assignmentName, className, typeName, dueDate, notes, duration, attachments, uuid)
+    return Assignment(assignmentName, className, typeName, dueDate, notes, duration, attachments=attachments, uuid=uuid, status=status)
 
 
 class Assignment:
@@ -29,7 +30,7 @@ class Assignment:
         self.attachments = attachments
         self.notes = notes
         self.duration = duration
-
+        self.status = status
         self.uuid = uuid.hex
 
     def __eq__(self, other):
@@ -48,6 +49,7 @@ class Assignment:
         dictionaryForm["dueDate"] = self.dueDate
         dictionaryForm["attachments"] = self.attachments 
         dictionaryForm["notes"] = self.notes
+        dictionaryForm["status"] = self.status
         dictionaryForm["duration"] = self.duration
         dictionaryForm["uuid"] = self.uuid
 
