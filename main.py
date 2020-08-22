@@ -17,10 +17,12 @@ def index():
 
     return render_template("index.html", **tags)
 
-@app.route('/new', methods=['POST'])
-def new():
+@app.route('/new', methods=['GET', 'POST'])
+def newAssignment():
+
     print(request.form["name"])
 
+    return render_template("addassignment.html")
 
 if __name__ == "__main__":
     app.run()
