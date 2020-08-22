@@ -39,5 +39,11 @@ def newAssignment():
     else:
         return render_template("addassignment.html")
 
+def calcRings(totalTime,activityTime,workTime):
+    if activityTime+workTime>totalTime:
+        return [1]
+    else:
+        return [workTime,activityTime,totalTime-activityTime-workTime]
+
 if __name__ == "__main__":
     app.run()
