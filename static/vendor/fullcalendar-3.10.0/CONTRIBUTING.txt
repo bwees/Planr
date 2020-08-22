@@ -56,7 +56,7 @@ When modifying files, please do not edit the generated or minified files in the 
 
 ## Development Workflow
 
-After you make code changes, you'll want to compile the JS/CSS so that it can be previewed from the tests and demos. You can either manually rebuild each time you make a change:
+After you make code changes, you'll want to compile the /static/js/CSS so that it can be previewed from the tests and demos. You can either manually rebuild each time you make a change:
 
 	gulp dev
 
@@ -121,7 +121,7 @@ If you have edited code (including **tests** and **translations**) and would lik
 [MomentJS locale data]: https://github.com/moment/moment/tree/develop/locale
 [git]: http://git-scm.com/
 [node]: http://nodejs.org/
-[gulp-cli]: https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md
+[gulp-cli]: https://github.com/gulp/static/js/gulp/blob/master/docs/getting-started.md
 [jq-readme]: https://github.com/jquery/jquery/blob/master/README.md#what-you-need-to-build-your-own-jquery
 [Google JavaScript Style Guide]: http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml
 [Automated Test Readme]: https://github.com/fullcalendar/fullcalendar/wiki/Automated-Tests

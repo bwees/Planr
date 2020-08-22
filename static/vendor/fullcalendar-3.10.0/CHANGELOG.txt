@@ -791,7 +791,7 @@ which cover about half of FullCalendar's functionality. Special thanks to @incre
 @sirrocco for the help.
 
 In addition, the main development repo has been repurposed to also include the built distributable
-JS/CSS for the project and will serve as the new [Bower] endpoint.
+/static/js/CSS for the project and will serve as the new [Bower] endpoint.
 
 [MomentJS]: http://momentjs.com/
 [Upgrading-to-v2]: http://arshaw.com/fullcalendar/wiki/Upgrading-to-v2/

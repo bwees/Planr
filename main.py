@@ -3,7 +3,7 @@ from tinydb import TinyDB, Query
 
 db = TinyDB('planr.json')
 
-app = Flask(__name__, template_folder="web")
+app = Flask(__name__, template_folder="web/", static_folder="static/")
 
 @app.route('/')
 def hello_world():

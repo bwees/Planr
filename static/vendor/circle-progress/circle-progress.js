@@ -7,7 +7,7 @@
  * @licence MIT
  * @preserve
  */
-// UMD factory - https://github.com/umdjs/umd/blob/d31bb6ee7098715e019f52bdfe27b3e4bfd2b97e/templates/jqueryPlugin.js
+// UMD factory - https://github.com/umd/static/js/umd/blob/d31bb6ee7098715e019f52bdfe27b3e4bfd2b97e/templates/jqueryPlugin.js
 // Uses AMD, CommonJS or browser globals to create a jQuery plugin.
 (function(factory) {
   if (typeof define === 'function' && define.amd) {
