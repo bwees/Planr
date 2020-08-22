@@ -9,10 +9,10 @@ app = Flask(__name__, template_folder="web/", static_folder="web/static/")
 def hello_world():
 
     tags = {
-        "time_today": 5,
+        "time_today": "25-30",
         "today_due": 4,
         "tmrw_due": 33,
-        "nxt_due": 25-30
+        "nxt_due": 4
     }
 
     return render_template("index.html", **tags)
