@@ -2,9 +2,9 @@ from uuid import uuid1
 from enum import Enum
 
 class Status:
-    notStarted = 0
-    inProgress = 1
-    complete = 2
+    notStarted = "Not Started"
+    inProgress = "In Progress"
+    complete = "Complete"
 
 def assignmentFromDictionary(dictionaryForm):
 
