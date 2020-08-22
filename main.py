@@ -1,10 +1,36 @@
 from flask import Flask, render_template, request, redirect, url_for
-from tinydb import TinyDB, Query
+from tinydb import TinyDB, Query, where
 from assignment import *
+from flask_table import Table, Col
+from datetime import datetime
 
 db = TinyDB('planr.json')
 
 app = Flask(__name__, template_folder="web/", static_folder="web/static/")
+
+
+def getAssignmentByDate(dateIn):
+    return db.search(where("dueDate")==dateIn)
+    
+
+def calcRings(totalTime,activityTime,workTime):
+    if activityTime+workTime>totalTime:
+        return [1], ["Time Used"]
+    else:
+        return [workTime,activityTime,totalTime-activityTime-workTime], ["Work Time", "Activity Time", "Free Time"]
+
+
+def htmlString(tags):
+    htmlString = ""
+    for tag in tags:
+        if tag == "Work Time":
+            htmlString += '<div class="chart-note mr-0 d-block"><span class="dot dot--blue"></span><span>Work Time</span></div>'
+        if tag == "Activity Time":
+            htmlString+= '<div class="chart-note mr-0 d-block"><span class="dot dot--red"></span><span>Activity Time</span></div>'
+        if tag == "Free Time":
+            htmlString+= '<div class="chart-note mr-0 d-block"><span class="dot dot--green"></span><span>Free Time</span></div>'
+    return htmlString
+
 
 @app.route('/')
 def index():
@@ -13,10 +39,22 @@ def index():
         "time_today": "25-30",
         "today_due": 4,
         "tmrw_due": 33,
-        "nxt_due": 4
+        "nxt_due": 4,
+        "pie_data": calcRings(90, 30, 100)[0],
+        "pie_tags": calcRings(90, 30, 100)[1],
+        "pie_dots": ["r", "f", "f"]
     }
 
     return render_template("index.html", **tags)
+
+@app.route("/assignments")
+def assignment_list():
+
+    today_due_list = getAssignmentByDate(datetime.now().strftime("%Y-%m-%d"))
+
+    print(today_due_list)
+
+    return render_template("assignment_list.html")
 
 @app.route('/add_assignment', methods=['GET', 'POST'])
 def newAssignment():
@@ -30,25 +68,13 @@ def newAssignment():
         attachments = request.form.get("attachments")
 
         assignment = Assignment(assignmentName,className,typeName,dueDate,notes,duration,attachments)
-
-        print(assignment.dictionary())
-
         db.insert(assignment.dictionary())
 
-        return redirect(url_for("index"))
+        return redirect("/assignments")
     else:
         return render_template("add_assignment.html")
 
-def getAssignmentByDate(date):
-    assignment = Query()
-    return db.search(assignment.date==date)
-    
 
-def calcRings(totalTime,activityTime,workTime):
-    if activityTime+workTime>totalTime:
-        return [1], ["Time Used"]
-    else:
-        return [workTime,activityTime,totalTime-activityTime-workTime], ["Work Time", "Activity Time", "Free Time"]
 
 if __name__ == "__main__":
     app.run()
