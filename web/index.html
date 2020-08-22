@@ -70,7 +70,7 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap">
-                            <h2 class="title-1">Dashboard</h2>
+                            <h2 class="title-1">Assignments</h2>
                                 <button onclick="location.href='/add_assignment'" class="au-btn au-btn-icon au-btn--blue">
                                         <i class="zmdi zmdi-plus"></i>add item</button>
                         </div>
@@ -207,7 +207,7 @@
                                         <div class="row no-gutters">
                                             <div class="col-xl-6">
                                                 <div class="chart-note-wrap">
-                                                    {{ pieDots }}
+                                                    {{ pie_dots | safe }}
                                                 </div>
                                             </div>
                                             <div class="col-xl-6">

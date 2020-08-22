@@ -40,6 +40,7 @@ def calcRings(totalTime,activityTime,workTime):
 
 def htmlString(tags):
     htmlString = ""
+
     for tag in tags:
         if tag == "Work Time":
             htmlString += '<div class="chart-note mr-0 d-block"><span class="dot dot--blue"></span><span>Work Time</span></div>'
@@ -47,7 +48,18 @@ def htmlString(tags):
             htmlString+= '<div class="chart-note mr-0 d-block"><span class="dot dot--red"></span><span>Activity Time</span></div>'
         if tag == "Free Time":
             htmlString+= '<div class="chart-note mr-0 d-block"><span class="dot dot--green"></span><span>Free Time</span></div>'
+        if tag == "Time Used":
+            htmlString += '<div class="chart-note mr-0 d-block"><span class="dot dot--blue"></span><span>Used Time</span></div>'
+
     return htmlString
+
+
+class AssignmentTable(Table):
+    classes = ['table', 'table-data2']
+    assignmentName = Col('Name')
+    typeName = Col('Type')
+    className = Col('Class')
+    status = Col('Status')
 
 
 @app.route('/')
@@ -58,22 +70,25 @@ def index():
         "today_due": 4,
         "tmrw_due": 33,
         "nxt_due": 4,
-        "pie_data": calcRings(90, 30, 100)[0],
-        "pie_tags": calcRings(90, 30, 100)[1],
-        "pie_dots": ["r", "f", "f"]
+        "pie_data": calcRings(60, 30, 10)[0],
+        "pie_tags": calcRings(60, 30, 10)[1],
+        "pie_dots": htmlString(calcRings(60, 30, 10)[1])
     }
+
+    print(tags["pie_dots"])
 
     return render_template("index.html", **tags)
 
 
 @app.route("/assignments")
 def assignment_list():
+    assignments = db.search(where("status")!= 1)
 
-    today_due_list = getAssignmentByDate(datetime.now().strftime("%Y-%m-%d"))
+    items = [assignmentFromDictionary(x) for x in assignments]
 
-    print(today_due_list)
+    table = AssignmentTable(items)
 
-    return render_template("assignment_list.html")
+    return render_template("assignment_list.html", assignment_table=table.__html__())
 
 
 @app.route('/add_assignment', methods=['GET', 'POST'])

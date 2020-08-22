@@ -21,8 +21,8 @@ def assignmentFromDictionary(dictionaryForm):
     return Assignment(assignmentName, className, typeName, dueDate, notes, duration, attachments=attachments, uuid=uuid, status=status)
 
 
-class Assignment:
-    def __init__(self, assignmentName, className, typeName, dueDate, notes, duration, attachments = [], status=Status.notStarted, uuid=uuid1()):
+class Assignment(object):
+    def __init__(self, assignmentName, className, typeName, dueDate, notes, duration, attachments = [], status=Status.notStarted, uuid=uuid1().hex):
         self.assignmentName = assignmentName
         self.className = className
         self.typeName = typeName
@@ -31,7 +31,7 @@ class Assignment:
         self.notes = notes
         self.duration = duration
         self.status = status
-        self.uuid = uuid.hex
+        self.uuid = uuid
 
     def __eq__(self, other):
         return self.uuid == other.uuid
