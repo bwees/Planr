@@ -37,7 +37,9 @@ def newAssignment():
 
         return redirect(url_for("index"))
     else:
-        return render_template("addassignment.html")
+        return render_template("add_assignment.html")
+
+
 
 def calcRings(totalTime,activityTime,workTime):
     if activityTime+workTime>totalTime:
