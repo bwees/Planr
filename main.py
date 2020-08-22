@@ -18,11 +18,21 @@ def index():
     return render_template("index.html", **tags)
 
 @app.route('/new', methods=['GET', 'POST'])
-def newAssignment():
 
-    print(request.form["name"])
+def newAssignment():
+    assignmentName = request.form["assignmentName"]
+    className = request.form["className"]
+    typeName = request.form["typeName"]
+    dueDate = request.form["dueDate"]
+    notes = request.form["notes"]
+    duration = request.form["duration"]
+    attachments = request.form["attachments"]
+
+    assignment = Assignment(assignmentName,className,typeName,dueDate,notes,duration,attachments)
+
+    tinydb.insert(assignment.dictionary)
 
     return render_template("addassignment.html")
 
 if __name__ == "__main__":
-    app.run()
+    app.run()``
