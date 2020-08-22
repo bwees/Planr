@@ -6,7 +6,7 @@ db = TinyDB('planr.json')
 app = Flask(__name__, template_folder="web/", static_folder="web/static/")
 
 @app.route('/')
-def hello_world():
+def index():
 
     tags = {
         "time_today": "25-30",
@@ -16,6 +16,11 @@ def hello_world():
     }
 
     return render_template("index.html", **tags)
+
+@app.route('/new', methods=['POST'])
+def new():
+    print(request.form["name"])
+
 
 if __name__ == "__main__":
     app.run()
