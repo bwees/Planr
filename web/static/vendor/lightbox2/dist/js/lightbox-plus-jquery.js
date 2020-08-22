@@ -593,7 +593,7 @@ var i,
 	push = arr.push,
 	slice = arr.slice,
 	// Use a stripped-down indexOf as it's faster than native
-	// https://static/js/perf.com/thor-indexof-vs-for/5
+	// https:/static/js/perf.com/thor-indexof-vs-for/5
 	indexOf = function( list, elem ) {
 		var i = 0,
 			len = list.length;
@@ -5831,7 +5831,7 @@ jQuery.extend( {
 		if ( !support.noCloneChecked && ( elem.nodeType === 1 || elem.nodeType === 11 ) &&
 				!jQuery.isXMLDoc( elem ) ) {
 
-			// We eschew Sizzle here for performance reasons: https://static/js/perf.com/getall-vs-sizzle/2
+			// We eschew Sizzle here for performance reasons: https:/static/js/perf.com/getall-vs-sizzle/2
 			destElements = getAll( clone );
 			srcElements = getAll( elem );
 
@@ -8505,7 +8505,7 @@ var
 	rprotocol = /^\/\//,
 
 	/* Prefilters
-	 * 1) They are useful to introduce custom dataTypes (see ajax/static/js/onp.js for an example)
+	 * 1) They are useful to introduce custom dataTypes (see ajaxstatic/js/onp.js for an example)
 	 * 2) These are called:
 	 *    - BEFORE asking for a transport
 	 *    - AFTER param serialization (s.data is a string if s.processData is true)
@@ -8802,7 +8802,7 @@ jQuery.extend( {
 			text: "text/plain",
 			html: "text/html",
 			xml: "application/xml, text/xml",
-			json: "application/static/js/on, text/javascript"
+			json: "applicationstatic/js/on, text/javascript"
 		},
 
 		contents: {
