@@ -55,17 +55,6 @@ def newAssignment():
     else:
         return render_template("add_assignment.html")
 
-def getAssignmentByDate(date):
-    assignment = Query()
-    return db.search(assignment.date==date)
-    
-
-def calcRings(totalTime,activityTime,workTime):
-    if activityTime+workTime>totalTime:
-        return [1], ["Time Used"]
-    else:
-        return [workTime,activityTime,totalTime-activityTime-workTime], ["Work Time", "Activity Time", "Free Time"]
-
 def htmlString(tags):
     htmlString = ""
     for tag in tags:
