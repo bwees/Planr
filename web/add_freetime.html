@@ -10,10 +10,10 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Edit Assignment</title>
+    <title>Add Free Time</title>
 
     <!-- Fontfaces CSS-->
-    <link href="//static/css/font-face.css" rel="stylesheet" media="all">
+    <link href="/static/css/font-face.css" rel="stylesheet" media="all">
     <link href="/static/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
     <link href="/static/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
     <link href="/static/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -75,8 +75,8 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap">
-                            <h2 class="title-1">Edit Assignment</h2>
-                                <input type="submit" class="au-btn au-btn-icon au-btn--blue" value="Save">
+                            <h2 class="title-1">Add Free Time</h2>
+                                <input type="submit" class="au-btn au-btn-icon au-btn--blue" value="Add Free Time">
                         </div>
                     </div>
                 </div>
@@ -95,46 +95,19 @@
                                     </div>
                                     <div class="card-body card-block">
                                         <div class="form-group">
-                                            <label for="name" class=" h-50">Assignment Name</label>
-                                            <input type="text" name="name" value="{{ name }}" placeholder="Enter Assignment Name" class="form-control" required>
+                                            <label for="name" class=" h-50">Free Time Name</label>
+                                            <input type="text" name="name" placeholder="Enter Free Time Name" class="form-control" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="class" class=" form-control-label">Class</label>
-                                            <input type="text" name="class" value="{{ class }}" placeholder="Enter Class Name" class="form-control" required>
+                                            <label for="class" class=" form-control-label">Duration</label>
+                                            <input type="number" step="5" value="30" name="duration" placeholder="Enter Duration Name" class="form-control" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="type" class=" form-control-label">Assignment Type</label>
-                                            <input type="text" name="type" value="{{ type }}" placeholder="Enter Type" class="form-control" required>
+                                            <label for="type" class=" form-control-label">Start Time</label>
+                                            <input type="datetime" name="time" placeholder="Enter Type" class="form-control" required>
                                         </div>
                                     </div>
-                                </div>
-                                        
-                                <div class="card">
-                                    <div class="card-header">
-                                        <strong>Time and Date</strong>
-                                    </div>
-                                    <div class="card-body card-block">
-                                        <div class="form-group">
-                                            <label for="date" class=" h-50">Due Date</label>
-                                            <input type="date" name="date" value="{{ date }}" placeholder="Enter Due Date" class="form-control" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="length" class=" form-control-label">Time Length</label>
-                                            <input type="number" step="10" value="{{ length }}" name="length" placeholder=20 class="form-control" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-header">
-                                        <strong>Notes</strong>
-                                    </div>
-                                    <div class="card-body card-block">
-                                        <div class="form-group">
-                                            <label for="notes" class=" h-50">Notes</label>
-                                            <input type="text" name="notes" value="{{ notes }}" placeholder="" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>                                
+                                </div>                              
                             </form>
                             </div>
                         </div>

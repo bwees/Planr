@@ -21,6 +21,34 @@ def assignmentFromDictionary(dictionaryForm):
     return Assignment(assignmentName, className, typeName, dueDate, notes, duration, attachments=attachments, uuid=uuid, status=status)
 
 
+def freeTimeFromDictionary(dictionaryForm):
+
+    name = dictionaryForm["name"]
+    duration = dictionaryForm["duration"]
+    time = dictionaryForm["time"]
+    uuid = dictionaryForm["uuid"]
+    
+
+    return freeTime(name, duration, time, uuid)
+
+class freeTime(object):
+    def __init__(self, name, duration, time, uuid=uuid1().hex):
+        self.name = name
+        self.duration = duration
+        self.time = time
+        self.uuid = uuid
+
+    def dictionary(self):
+
+        dictionaryForm = {}
+
+        dictionaryForm["name"] = self.name
+        dictionaryForm["duration"] = self.duration
+        dictionaryForm["time"] = self.time
+        dictionaryForm["uuid"] = self.uuid
+        
+        return dictionaryForm
+
 class Assignment(object):
     def __init__(self, assignmentName, className, typeName, dueDate, notes, duration, attachments = [], status=Status.notStarted, uuid=uuid1().hex):
         self.assignmentName = assignmentName
