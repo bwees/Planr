@@ -3154,33 +3154,33 @@ section {
 .overview-item--c1 {
     height: 125px;
 
-    background-image: -moz-linear-gradient(90deg, #3f5efb 0%, #fc466b 100%);
-    background-image: -webkit-linear-gradient(90deg, #3f5efb 0%, #fc466b 100%);
-    background-image: -ms-linear-gradient(90deg, #3f5efb 0%, #fc466b 100%);
+    background-image: -moz-linear-gradient(90deg, #35bcbf 0%, #0dceda 100%);
+    background-image: -webkit-linear-gradient(90deg, #35bcbf 0%, #0dceda 100%);
+    background-image: -ms-linear-gradient(90deg, #35bcbf 0%, #0dceda 100%);
 }
 
 .overview-item--c2 {
     height: 125px;
 
-    background-image: -moz-linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
-    background-image: -webkit-linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
-    background-image: -ms-linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
+	background-image: -moz-linear-gradient(90deg, #45b649 0%, #dce35b 100%);
+    background-image: -webkit-linear-gradient(90deg, #45b649 0%, #dce35b 100%);
+    background-image: -ms-linear-gradient(90deg, #45b649 0%, #dce35b 100%);
 }
 
 .overview-item--c3 {
     height: 125px;
 
-    background-image: -moz-linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
-    background-image: -webkit-linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
-    background-image: -ms-linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+    background-image: -moz-linear-gradient(90deg, #90f6d7 0%, #35bcbf 100%);
+    background-image: -webkit-linear-gradient(90deg, #90f6d7 0%, #35bcbf 100%);
+    background-image: -ms-linear-gradient(90deg, #90f6d7 0%, #35bcbf 100%);
 }
 
 .overview-item--c4 {
     height: 125px;
-
-    background-image: -moz-linear-gradient(90deg, #45b649 0%, #dce35b 100%);
-    background-image: -webkit-linear-gradient(90deg, #45b649 0%, #dce35b 100%);
-    background-image: -ms-linear-gradient(90deg, #45b649 0%, #dce35b 100%);
+	
+	background-image: -moz-linear-gradient(90deg, #6ef3d6 0%, #c6fce5 100%);
+    background-image: -webkit-linear-gradient(90deg, #6ef3d6 0%, #c6fce5 100%);
+    background-image: -ms-linear-gradient(90deg, #6ef3d6 0%, #c6fce5 100%);
 }
 
 .overview-box .icon {
