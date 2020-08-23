@@ -280,7 +280,7 @@ def edit_freetime(uuid):
         if duration == None: 
             duration = 20
 
-        freetime = freeTime(name, duration, time, uuid=freetime["uuid"])
+        freetime = freeTime(name, duration, time)
         freetimesdb.insert(freetime.dictionary())
 
         return redirect("/free_times")
@@ -301,6 +301,9 @@ def edit_assignment(uuid):
 
     if request.method == "POST" and request.form.get("name") != None:
 
+        status = assignmentdb.search(where('uuid')==uuid)[0]["status"]
+        print(status)
+
         del_assignment(uuid)
 
         assignmentName = request.form.get("name")
@@ -314,7 +317,7 @@ def edit_assignment(uuid):
             duration = 20
         attachments = request.form.get("attachments")
 
-        assignment = Assignment(assignmentName,className,typeName,dueDate,notes,duration,attachments, status=assignment["status"], uuid=assignment["uuid"])
+        assignment = Assignment(assignmentName,className,typeName,dueDate,notes,duration,attachments, status=status)
         assignmentdb.insert(assignment.dictionary())
 
         return redirect("/view_assignment/"+uuid)
