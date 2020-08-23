@@ -3152,11 +3152,11 @@ section {
 }
 
 .overview-item--c1 {
-    height: 125px;
-
-    background-image: -moz-linear-gradient(90deg, #0dceda 0%, #6ef3d6 100%);
-    background-image: -webkit-linear-gradient(90deg, #0dceda 0%, #6ef3d6 100%);
-    background-image: -ms-linear-gradient(90deg, #0dceda 0%, #6ef3d6 100%);  
+   height: 125px;
+	
+	background-image: -moz-linear-gradient(90deg, #40E0D0 0%, #3cbdbd 100%);
+    background-image: -webkit-linear-gradient(90deg, #40E0D0 0%, #3cbdbd 100%);
+    background-image: -ms-linear-gradient(90deg, #40E0D0 0%, #3cbdbd 100%);
 }
 
 .overview-item--c2 {
@@ -3168,19 +3168,18 @@ section {
 }
 
 .overview-item--c3 {
-    height: 125px;
-
-    background-image: -moz-linear-gradient(90deg, #90f6d7 0%, #35bcbf 100%);
-    background-image: -webkit-linear-gradient(90deg, #90f6d7 0%, #35bcbf 100%);
-    background-image: -ms-linear-gradient(90deg, #90f6d7 0%, #35bcbf 100%);
-}
-
-.overview-item--c4 {
-    height: 125px;
+   height: 125px;
 	
 	background-image: -moz-linear-gradient(90deg, #40E0D0 0%, #3cbdbd 60%);
     background-image: -webkit-linear-gradient(90deg, #40E0D0 0%, #3cbdbd 60%);
     background-image: -ms-linear-gradient(90deg, #40E0D0 0%, #3cbdbd 60%);
+
+.overview-item--c4 {
+   height: 125px;
+
+	background-image: -moz-linear-gradient(90deg, #40E0D0 0%, #00CED1 100%);
+    background-image: -webkit-linear-gradient(90deg, #40E0D0 0%, #00CED1 100%);
+    background-image: -ms-linear-gradient(90deg, #40E0D0 0%, #00CED1 100%);
 }
 
 .overview-box .icon {
