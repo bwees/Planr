@@ -10,7 +10,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>View Assignment</title>
+    <title>Tables</title>
 
     <!-- Fontfaces CSS-->
     <link href="/static/css/font-face.css" rel="stylesheet" media="all">
@@ -37,7 +37,6 @@
 
 <body class="animsition">
     <div class="page-wrapper">
-
         <!-- MENU SIDEBAR-->
         <aside class="menu-sidebar d-none d-lg-block">
             <div class="logo">
@@ -72,78 +71,34 @@
             <header class="header-desktop">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
-                        
+                        <div class="header-wrap">
+                            <h2 class="title-1">free Times</h2>
+                                <button onclick="location.href='/add_freetime'" class="au-btn au-btn-icon au-btn--blue">
+                                        <i class="zmdi zmdi-plus"></i>add freetime</button>
+                        </div>
                     </div>
                 </div>
             </header>
-            <!-- HEADER DESKTOP-->
-
+            <!-- END HEADER DESKTOP-->
+            
             <!-- MAIN CONTENT-->
             <div class="main-content">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg">
-                                <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
-                                    <div class="au-card-title" style="background-color: #2356ff;">
-                                        <div>
-                                                <h1 class="text-white text-lg-left">
-                                                    
-                                                    {{ name }}
-                                                </h1>
-                                                <h4 class="text-white text-lg-left">
-                                                    {{ type }}
-                                                </h4>
-
-                                            </div>
-                                            
-                                            <button class="au-btn-plus" onclick="window.location.href = '/edit_assignment/{{ uuid }}'">
-                                            <i class="zmdi zmdi-edit"></i>
-                                        </button>
-                                    </div>
-                                  <div class="au-task-list js-scrollbar3">
-                                            <div class="au-task__item {{bar_color}}">
-                                                <div class="au-task__item-inner">
-                                                    <h5 class="task">
-                                                        Due: {{date}}
-                                                    </h5>
-                                                    <h5 class="task">
-                                                        Duration: {{length}} minutes
-                                                    </h5>
-                                                    <h5 class="task">
-                                                        Status: {{status}}
-                                                    </h5>
-                                                    <span class="time"></span>
-                                                </div>
-                                            </div>
-                                        <div class="row">
-                                            <div class="au-task__title col-3">
-                                                
-                                            </div>
-                                            <div class="au-task__title col-6">
-                                                <button class="btn-primary-red" style="padding: 18px; min-width: 175px;">Not Started</button>
-                                                <button class="btn-primary" style="padding: 18px; min-width: 175px;">In Progress</button>
-                                                <button class="btn-primary-green" style="padding: 18px; min-width: 175px;">Complete</button>
-                                            </div>
-                                            <div class="au-task__title col-3">
-                                                
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="col-12" style="padding-top: 18px;">
-                                            <p>
-                                                {{notes}}
-                                            </p>
-   
-                                        </div>
+                            <div class="col-md-12">
+                                <!-- DATA TABLE -->
+                                <div class="table-responsive table-responsive-data2">
+                                {{ freetime_table | safe }}
                                 </div>
+                                <!-- END DATA TABLE -->
                             </div>
                         </div>
+                        <div class="row m-t-30"> </div>
+                        
                     </div>
                 </div>
             </div>
-            <!-- END MAIN CONTENT-->
-            <!-- END PAGE CONTAINER-->
         </div>
 
     </div>
@@ -173,9 +128,6 @@
     <script src="/static/js/main.js"></script>
 
 </body>
-
-
-
 
 </html>
 <!-- end document-->
