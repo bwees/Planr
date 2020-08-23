@@ -35,11 +35,11 @@ def widgetData():
 
     activityMins = 0
     for activity in activitiesdb.all():
-        activityMins += activity["duration"]
+        activityMins += int(activity["duration"])
 
     workMins = 0
     for assignment in dueToday:
-        workMins += assignment["duration"]
+        workMins += int(assignment["duration"])
     
     assignment = Query()
     dueTomorrow = assignmentdb.search(assignment.dueDate==tomorrow_date)
@@ -64,8 +64,8 @@ def htmlString(tags):
     htmlString = ""
 
     for tag in tags:
-        if tag == "free Time":
-            htmlString += '<div class="chart-note mr-0 d-block"><span class="dot dot--blue"></span><span>free Time</span></div>'
+        if tag == "Work Time":
+            htmlString += '<div class="chart-note mr-0 d-block"><span class="dot dot--blue"></span><span>Work Time</span></div>'
         if tag == "Activity Time":
             htmlString+= '<div class="chart-note mr-0 d-block"><span class="dot dot--red"></span><span>Activity Time</span></div>'
         if tag == "Free Time":
@@ -94,8 +94,16 @@ class freeTimeTable(Table):
     name = Col('Name')
     duration = Col('Duration')
     time = Col('Time')
-    delete = ButtonCol('Delete','del_freetime', url_kwargs=dict(uuid="uuid"), td_html_attrs = {'class': 'btn-primary text-white text-bold'})
-    
+    edit = ButtonCol('Edit','edit_freetime', url_kwargs=dict(uuid="uuid"), td_html_attrs = {'class': 'btn-secondary text-white text-bold'})
+    delete = ButtonCol('Delete','del_freetime', url_kwargs=dict(uuid="uuid"), td_html_attrs = {'class': 'btn-primary-red text-white text-bold'})
+
+class activityTable(Table):
+    classes = ['table', 'table-data2']
+    name = Col('Name')
+    duration = Col('Duration')
+    time = Col('Time')
+    edit = ButtonCol('Edit','edit_activity', url_kwargs=dict(uuid="uuid"), td_html_attrs = {'class': 'btn-secondary text-white text-bold'})
+    delete = ButtonCol('Delete','del_activity', url_kwargs=dict(uuid="uuid"), td_html_attrs = {'class': 'btn-primary-red text-white text-bold'})
 
 class AssignmentTableHome(Table):
     assignmentName = Col('Name')
@@ -121,7 +129,7 @@ def index():
     print(calcRings(freeMins, workMins, activityMins))
 
     tags = {
-        "time_today": str(freeMins)+"-"+str(freeMins+10)+" mins",
+        "time_today": str(workMins)+"-"+str(workMins+10)+" mins",
         "today_due": len(dueToday),
         "tmrw_due": len(dueTomorrow),
         "nxt_due": len(dueNextWeek),
@@ -153,9 +161,9 @@ def activity_list(action = None):
 
     items = [freeTimeFromDictionary(x) for x in activities]
 
-    table = freeTimeTable(items, html_attrs = {'class': 'table table-data2'})
+    table = activityTable(items, html_attrs = {'class': 'table table-data2'})
 
-    return render_template("activity_list.html", freetime_table=table.__html__())
+    return render_template("activity_list.html", activity_table=table.__html__())
 
 @app.route("/free_times", methods=['GET', 'POST'])
 def free_time_list(action = None):
@@ -226,6 +234,71 @@ def newAssignment():
     else:
         return render_template("add_assignment.html")
 
+@app.route('/edit_activity/<string:uuid>', methods=['GET', 'POST'])
+def edit_activity(uuid):
+
+    if request.method == "POST" and request.form.get("name") != None:
+
+        activity = activitiesdb.search(where("uuid") == uuid)[0]
+
+        activitiesdb.remove(where('uuid') == uuid)
+
+        name = request.form.get("name")
+        time = request.form.get("time")
+        duration = request.form.get("duration")
+        
+        if duration == None: 
+            duration = 20
+
+
+        activity = freeTime(name, duration, time, uuid=activity["uuid"])
+        activitiesdb.insert(activity.dictionary())
+
+        return redirect("/activities")
+    else:
+        activities = Query()
+        result = activitiesdb.search(activities.uuid == uuid)[0]
+
+        tags = {
+            "name": result["name"],
+            "duration": result["duration"],
+            "time": result["time"],
+        }
+
+        return render_template("edit_activity.html", **tags)
+
+@app.route('/edit_freetime/<string:uuid>', methods=['GET', 'POST'])
+def edit_freetime(uuid):
+
+    if request.method == "POST" and request.form.get("name") != None:
+
+        freetime = freetimesdb.search(where("uuid") == uuid)[0]
+
+        freetimesdb.remove(where('uuid') == uuid)
+
+        name = request.form.get("name")
+        time = request.form.get("time")
+        duration = request.form.get("duration")
+        
+        if duration == None: 
+            duration = 20
+
+        freetime = freeTime(name, duration, time, uuid=freetime["uuid"])
+        freetimesdb.insert(freetime.dictionary())
+
+        return redirect("/free_times")
+    else:
+        activities = Query()
+        result = freetimesdb.search(activities.uuid == uuid)[0]
+
+        tags = {
+            "name": result["name"],
+            "duration": result["duration"],
+            "time": result["time"],
+        }
+
+        return render_template("edit_freetime.html", **tags)
+
 @app.route('/edit_assignment/<string:uuid>', methods=['GET', 'POST'])
 def edit_assignment(uuid):
 
@@ -240,7 +313,7 @@ def edit_assignment(uuid):
         typeName = request.form.get("type")
         dueDate = request.form.get("date")
         notes = request.form.get("notes")
-        duration = request.form.get("duration")
+        duration = request.form.get("length")
         
         if duration == None: 
             duration = 20
