@@ -3,6 +3,7 @@ from tinydb import TinyDB, Query, where
 from assignment import *
 from flask_table import Table, Col, ButtonCol
 from datetime import datetime, timedelta
+import time 
 
 assignmentdb = TinyDB('db/planr.json')
 activitiesdb = TinyDB('db/act.json')
@@ -252,6 +253,8 @@ def edit_activity(uuid):
 
         activity = freeTime(name, duration, time)
         activitiesdb.insert(activity.dictionary())
+
+        time.sleep(0.25)
 
         return redirect("/activities")
     else:
