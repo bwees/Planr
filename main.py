@@ -96,6 +96,13 @@ class freeTimeTable(Table):
     time = Col('Time')
     delete = ButtonCol('Delete','del_freetime', url_kwargs=dict(uuid="uuid"), td_html_attrs = {'class': 'btn-primary text-white text-bold'})
     
+class activityTable(Table):
+    classes = ['table', 'table-data2']
+    name = Col('Name')
+    duration = Col('Duration')
+    time = Col('Time')
+    edit = ButtonCol('Edit','edit_activity', url_kwargs=dict(uuid="uuid"), td_html_attrs = {'class': 'btn-secondary text-white text-bold'})
+    delete = ButtonCol('Delete','del_activity', url_kwargs=dict(uuid="uuid"), td_html_attrs = {'class': 'btn-primary-red text-white text-bold'})
 
 class AssignmentTableHome(Table):
     assignmentName = Col('Name')
@@ -153,9 +160,9 @@ def activity_list(action = None):
 
     items = [freeTimeFromDictionary(x) for x in activities]
 
-    table = freeTimeTable(items, html_attrs = {'class': 'table table-data2'})
+    table = activityTable(items, html_attrs = {'class': 'table table-data2'})
 
-    return render_template("activity_list.html", freetime_table=table.__html__())
+    return render_template("activity_list.html", activity_table=table.__html__())
 
 @app.route("/free_times", methods=['GET', 'POST'])
 def free_time_list(action = None):
@@ -225,6 +232,39 @@ def newAssignment():
         return redirect("/assignments")
     else:
         return render_template("add_assignment.html")
+
+@app.route('/edit_activity/<string:uuid>', methods=['GET', 'POST'])
+def edit_activity(uuid):
+
+    if request.method == "POST" and request.form.get("name") != None:
+
+        activity = activitiesdb.search(where("uuid") == uuid)[0]
+
+        activitiesdb.remove(where('uuid') == uuid)
+
+        name = request.form.get("name")
+        time = request.form.get("time")
+        duration = request.form.get("duration")
+        
+        if duration == None: 
+            duration = 20
+
+
+        activity = freeTime(name, duration, time, uuid=assignment["uuid"])
+        activitiesdb.insert(activity.dictionary())
+
+        return redirect("/activities/")
+    else:
+        activities = Query()
+        result = activitiesdb.search(activities.uuid == uuid)[0]
+
+        tags = {
+            "name": result["name"],
+            "duration": result["duration"],
+            "time": result["time"],
+        }
+
+        return render_template("edit_assignment.html", **tags)
 
 @app.route('/edit_assignment/<string:uuid>', methods=['GET', 'POST'])
 def edit_assignment(uuid):
