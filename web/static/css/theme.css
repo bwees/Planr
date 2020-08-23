@@ -3272,7 +3272,7 @@ section {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
-    background: #eeeeee;
+    background: #ffffff;
     overflow: hidden;
 }
 
@@ -4244,7 +4244,7 @@ section {
 .table-earning thead th {
     background: #333;
     font-size: 16px;
-    color: #eeeeee;
+    color: #fff;
     vertical-align: middle;
     font-weight: 400;
     text-transform: capitalize;
@@ -4275,7 +4275,7 @@ section {
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-    background-color: #eeeeee;
+    background-color: #fff;
 }
 
 .table-striped tbody tr:nth-of-type(even) {
