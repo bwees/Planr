@@ -254,8 +254,6 @@ def edit_activity(uuid):
         activity = freeTime(name, duration, time)
         activitiesdb.insert(activity.dictionary())
 
-        time.sleep(0.25)
-
         return redirect("/activities")
     else:
         activities = Query()

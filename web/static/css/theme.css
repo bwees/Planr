@@ -3154,33 +3154,33 @@ section {
 .overview-item--c1 {
     height: 125px;
 
-    background-image: -moz-linear-gradient(90deg, #3f5efb 0%, #3cbdbd 60%);
-    background-image: -webkit-linear-gradient(90deg, #3f5efb 0%, #3cbdbd 60%);
-    background-image: -ms-linear-gradient(90deg, #3f5efb 0%, #3cbdbd 60%);
+    background-image: -moz-linear-gradient(90deg, #3f5efb 0%, #3c94bd 100%);
+    background-image: -webkit-linear-gradient(90deg, #3f5efb 0%, #3c94bd 100%);
+    background-image: -ms-linear-gradient(90deg, #3f5efb 0%, #3c94bd 100%);
 } 
 
 .overview-item--c2 {
     height: 125px;
 
-    background-image: -moz-linear-gradient(90deg, #00CED1 0%, #40E0D0 70%);
-    background-image: -webkit-linear-gradient(90deg, #00CED1 0%, #40E0D0 70%);
-    background-image: -ms-linear-gradient(90deg, #00CED1 0%, #40E0D0 70%);
+    background-image: -moz-linear-gradient(90deg, #3fa0fb 0%, #3fbffb 100%);
+    background-image: -webkit-linear-gradient(90deg, #3fa0fb 0%, #3fbffb 100%);
+    background-image: -ms-linear-gradient(90deg, #3fa0fb 0%, #3fbffb 100%);
 }
 
 .overview-item--c3 {
     height: 125px;
 
-    background-image: -moz-linear-gradient(90deg, #66CDAA 0%, #48D1CC 100%);
-    background-image: -webkit-linear-gradient(90deg, #66CDAA 0%, #48D1CC 100%);
-    background-image: -ms-linear-gradient(90deg, #66CDAA 0%, #48D1CC 100%);
+    background-image: -moz-linear-gradient(90deg, #423ffb 0%, #713ffb 100%);
+    background-image: -webkit-linear-gradient(90deg, #423ffb 0%, #713ffb 100%);
+    background-image: -ms-linear-gradient(90deg, #423ffb 0%, #713ffb 100%);
 }
 
 .overview-item--c4 {
     height: 125px;
 
-    background-image: -moz-linear-gradient(90deg, #32e0c4 0%, #0dceda 100%);
-    background-image: -webkit-linear-gradient(90deg, #32e0c4 0%, #0dceda 100%);
-    background-image: -ms-linear-gradient(90deg, #32e0c4 0%, #0dceda 100%);
+    background-image: -moz-linear-gradient(90deg, #873ffb 0%, #b339ff 100%);
+    background-image: -webkit-linear-gradient(90deg, #873ffb 0%, #b339ff 100%);
+    background-image: -ms-linear-gradient(90deg, #873ffb 0%, #b339ff 100%);
 }
 
 .overview-box .icon {
