@@ -177,7 +177,7 @@ strong {
     text-transform: capitalize;
     font-weight: 400;
     font-size: 24px;
-    color: #333;
+    color: #393e46;
 }
 
 .title-3 i {
@@ -188,26 +188,26 @@ strong {
 .title-4 {
     font-weight: 500;
     font-size: 30px;
-    color: #393939;
+    color: #393e46;
 }
 
 .title-5 {
     text-transform: capitalize;
     font-size: 22px;
     font-weight: 500;
-    color: #393939;
+    color: #393e46;
 }
 
 .title-6 {
     font-size: 24px;
     font-weight: 500;
-    color: #fff;
+    color: #eeeeee;
 }
 
 .heading-title {
     font-size: 24px;
     font-weight: 500;
-    color: #333;
+    color: #222831;
     text-transform: capitalize;
     margin-bottom: 10px;
 }
