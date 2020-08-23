@@ -10,7 +10,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Add Assignment</title>
+    <title>View Assignment</title>
 
     <!-- Fontfaces CSS-->
     <link href="/static/css/font-face.css" rel="stylesheet" media="all">
@@ -70,10 +70,7 @@
             <header class="header-desktop">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
-                        <div class="header-wrap">
-                            <h2 class="title-1">Add Assignment</h2>
-                                <input type="submit" class="au-btn au-btn-icon au-btn--blue" value="Add Assignment">
-                        </div>
+                        
                     </div>
                 </div>
             </header>
@@ -84,54 +81,32 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <strong>Basic Information</strong>
+                            <div class="col-lg">
+                                <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
+                                    <div class="au-card-title" style="background-image:url('/static/images/bg-title-01.jpg');">
+                                        <div class="bg-overlay bg-overlay--blue"></div>
+                                        <h3>
+                                            <i class="zmdi zmdi-account-calendar"></i></h3>
+                                        <button class="au-btn-plus" onclick="window.location.href='localhost:5000/edit_assignment/{{uuid}}'">
+                                            <i class="zmdi zmdi-edit"></i>
+                                        </button>
                                     </div>
-                                    <div class="card-body card-block">
-                                        <div class="form-group">
-                                            <label for="name" class=" h-50">Assignment Name</label>
-                                            <input type="text" name="name" placeholder="Enter Assignment Name" class="form-control" required>
+                                  <div class="au-task-list js-scrollbar3">
+                                            <div class="au-task__item au-task__item--danger">
+                                                <div class="au-task__item-inner">
+                                                  <h5 class="task">
+                                                        <a href="#">&nbsp;</a>
+                                                    </h5>
+                                                    <span class="time"></span>
+                                                </div>
+                                            </div>
+								    <div class="au-task js-list-load">
+                                        <div class="au-task__title">
+                                            <p></p>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="class" class=" form-control-label">Class</label>
-                                            <input type="text" name="class" placeholder="Enter Class Name" class="form-control" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="type" class=" form-control-label">Assignment Type</label>
-                                            <input type="text" name="type" placeholder="Enter Type" class="form-control" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                        
-                                <div class="card">
-                                    <div class="card-header">
-                                        <strong>Time and Date</strong>
-                                    </div>
-                                    <div class="card-body card-block">
-                                        <div class="form-group">
-                                            <label for="date" class=" h-50">Due Date</label>
-                                            <input type="date" name="date" placeholder="Enter Due Date" class="form-control" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="length" class=" form-control-label">Time Length</label>
-                                            <input type="number" step="10" value="20" name="length" placeholder=20 class="form-control" required>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card">
-                                    <div class="card-header">
-                                        <strong>Notes</strong>
-                                    </div>
-                                    <div class="card-body card-block">
-                                        <div class="form-group">
-                                            <label for="notes" class=" h-50">Notes</label>
-                                            <input type="text" name="notes" placeholder="" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>                                
-                            </form>
                             </div>
                         </div>
                     </div>

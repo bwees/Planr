@@ -88,6 +88,7 @@ class AssignmentTableHome(Table):
 @app.route('/')
 def index():
 
+    
     dueToday, dueTomorrow, dueNxtWk, totalMinsToday = widgetData()
 
     tags = {
@@ -139,11 +140,61 @@ def newAssignment():
 
 @app.route('/edit_assignment/<string:uuid>', methods=['GET', 'POST'])
 def edit_assignment(uuid):
-    return uuid
+
+    if request.method == "POST" and request.form.get("name") != None:
+
+        assignment = db.search(where("uuid") == uuid)[0]
+
+        db.remove(where('uuid') == uuid)
+
+        assignmentName = request.form.get("name")
+        className = request.form.get("class")
+        typeName = request.form.get("type")
+        dueDate = request.form.get("date")
+        notes = request.form.get("notes")
+        duration = request.form.get("duration")
+        
+        if duration == None: 
+            duration = 20
+        attachments = request.form.get("attachments")
+
+        assignment = Assignment(assignmentName,className,typeName,dueDate,notes,duration,attachments, status=assignment["status"], uuid=assignment["uuid"])
+        db.insert(assignment.dictionary())
+
+        return redirect("/assignments")
+    else:
+        assignment = Query()
+        result = db.search(assignment.uuid == uuid)[0]
+
+        print(result)
+
+        tags = {
+            "name": result["assignmentName"],
+            "class": result["className"],
+            "type": result["typeName"],
+            "length": result["duration"],
+            "notes": result["notes"],
+            "date": result["dueDate"]
+        }
+
+        return render_template("edit_assignment.html", **tags)
 
 @app.route('/view_assignment/<string:uuid>', methods=['GET', 'POST'])
 def view_assignment(uuid):
-    return uuid
+    assignment = db.search(where("uuid") == uuid)[0]
+
+    tags = {
+        "name": assignment["assignmentName"],
+        "class": assignment["className"],
+        "type": assignment["typeName"],
+        "length": assignment["duration"],
+        "notes": assignment["notes"],
+        "date": assignment["dueDate"],
+        "uuid": assignment["uuid"]
+
+    }
+
+    return render_template("assignment_detail.html", **tags)
 
 @app.route('/mark_done/<string:uuid>', methods=['GET', 'POST'])
 def mark_done(uuid):
