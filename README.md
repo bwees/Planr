@@ -1,5 +1,5 @@
 
-![Logo](https://raw.githubusercontent.com/bwees/Planr/master/doc/logo.png)
+![Logo](https://github.com/bwees/Planr/blob/master/web/static/images/icon/logo.png?raw=true)
 
 Introduction
 ------
