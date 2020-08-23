@@ -109,7 +109,7 @@ class AssignmentTableHome(Table):
     assignmentName = Col('Name')
     className = Col('Class')
     dueDate = Col("Due Date")
-    edit = ButtonCol('View','view_assignment', url_kwargs=dict(uuid="uuid"), td_html_attrs = {'class': 'btn-secondary'})
+    view = ButtonCol('View','view_assignment', url_kwargs=dict(uuid="uuid"), td_html_attrs = {'class': 'btn-secondary'})
     
 
 def getBarColor(status):
@@ -359,7 +359,7 @@ def view_assignment(uuid):
 
     return render_template("assignment_detail.html", **tags)
 
-@app.route('/del_worktime/<string:uuid>', methods=['GET', 'POST'])
+@app.route('/del_freetime/<string:uuid>', methods=['GET', 'POST'])
 def del_freetime(uuid):    
     freetimesdb.remove(where('uuid') == uuid)
 
