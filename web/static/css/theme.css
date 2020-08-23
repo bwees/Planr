@@ -3154,17 +3154,17 @@ section {
 .overview-item--c1 {
     height: 125px;
 
-    background-image: -moz-linear-gradient(90deg, #35bcbf 0%, #0dceda 100%);
-    background-image: -webkit-linear-gradient(90deg, #35bcbf 0%, #0dceda 100%);
-    background-image: -ms-linear-gradient(90deg, #35bcbf 0%, #0dceda 100%);
+    background-image: -moz-linear-gradient(90deg, #0dceda 0%, #6ef3d6 100%);
+    background-image: -webkit-linear-gradient(90deg, #0dceda 0%, #6ef3d6 100%);
+    background-image: -ms-linear-gradient(90deg, #0dceda 0%, #6ef3d6 100%);  
 }
 
 .overview-item--c2 {
     height: 125px;
 
-	background-image: -moz-linear-gradient(90deg, #45b649 0%, #dce35b 100%);
-    background-image: -webkit-linear-gradient(90deg, #45b649 0%, #dce35b 100%);
-    background-image: -ms-linear-gradient(90deg, #45b649 0%, #dce35b 100%);
+	background-image: -moz-linear-gradient(90deg, #36c2f3 0%, #69409e 70%);
+    background-image: -webkit-linear-gradient(90deg, #36c2f3 0%, #69409e 70%);
+    background-image: -ms-linear-gradient(90deg, #36c2f3 0%, #69409e 70%);
 }
 
 .overview-item--c3 {
@@ -3178,9 +3178,9 @@ section {
 .overview-item--c4 {
     height: 125px;
 	
-	background-image: -moz-linear-gradient(90deg, #6ef3d6 0%, #c6fce5 100%);
-    background-image: -webkit-linear-gradient(90deg, #6ef3d6 0%, #c6fce5 100%);
-    background-image: -ms-linear-gradient(90deg, #6ef3d6 0%, #c6fce5 100%);
+	background-image: -moz-linear-gradient(90deg, #64d2ff 0%, #c6fce5 60%);
+    background-image: -webkit-linear-gradient(90deg, #64d2ff 0%, #c6fce5 60%);
+    background-image: -ms-linear-gradient(90deg, #64d2ff 0%, #c6fce5 60%);
 }
 
 .overview-box .icon {
