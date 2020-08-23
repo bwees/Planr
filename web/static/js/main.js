@@ -214,7 +214,7 @@
     //WidgetChart 4
     var ctx = document.getElementById("widgetChart4");
     if (ctx) {
-      ctx.height = 115;
+      ctx.height = 500;
       var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -334,7 +334,7 @@
     // Percent Chart
     var ctx = document.getElementById("percent-chart");
     if (ctx) {
-      ctx.height = 280;
+      ctx.height = 500;
       var myChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
@@ -343,14 +343,14 @@
               label: "My First dataset",
               data: pieData,
               backgroundColor: [
-                '#00b5e9',
-                '#fa4251',
-                "#00ad5f"
+                '#3f5efb',
+                '#3fa0fb',
+                "#dddddd"
               ],
               hoverBackgroundColor: [
-                '#00b5e9',
-                '#fa4251',
-                "#00ad5f"
+                '#3f5efb',
+                '#3fa0fb',
+                "#dddddd"
               ],
               borderWidth: [
                 0, 0
@@ -376,7 +376,7 @@
           },
           tooltips: {
             titleFontFamily: "Poppins",
-            xPadding: 15,
+            xPadding: 10,
             yPadding: 10,
             caretPadding: 0,
             bodyFontSize: 16
