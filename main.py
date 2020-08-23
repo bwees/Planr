@@ -320,7 +320,7 @@ def edit_assignment(uuid):
         assignment = Assignment(assignmentName,className,typeName,dueDate,notes,duration,attachments, status=status)
         assignmentdb.insert(assignment.dictionary())
 
-        return redirect("/view_assignment/"+uuid)
+        return redirect("/view_assignment/"+assignment["uuid"])
     else:
         assignment = Query()
         result = assignmentdb.search(assignment.uuid == uuid)[0]
