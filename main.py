@@ -117,8 +117,7 @@ def getBarColor(status):
         return "au-task__item--primary"
     if status == Status.notStarted:
         return "au-task__item--danger"
-    if status == Status.complete:
-        return "au-task__item--complete"
+    if status == Status.complete:        return "au-task__item--success"
 
 
 @app.route('/')
@@ -136,7 +135,8 @@ def index():
         "pie_data": calcRings(freeMins, workMins, activityMins)[0],
         "pie_tags": calcRings(freeMins, workMins, activityMins)[1],
         "pie_dots": htmlString(calcRings(freeMins, workMins, activityMins)[1]),
-        "assignment_table": AssignmentTableHome(dueToday, html_attrs = {'class': 'table table-borderless table-striped table-earning'}).__html__()
+        "assignment_table": AssignmentTableHome(dueToday, html_attrs = {'class': 'table table-borderless table-striped table-earning'}).__html__(),
+        "coaching": "hello bois"
     }
 
     return render_template("index.html", **tags)
@@ -371,11 +371,11 @@ def del_activity(uuid):
 
     return redirect(request.referrer)
 
-@app.route('/mark_done/<string:uuid>', methods=['GET', 'POST'])
-def mark_done(uuid):
+@app.route('/set_status/<string:uuid>/<string:newStatus>', methods=['GET', 'POST'])
+def mark_done(uuid, newStatus):
     assignment = Query()
     
-    assignmentdb.update({"status": Status.complete}, assignment.uuid == uuid)
+    assignmentdb.update({"status": newStatus}, assignment.uuid == uuid)
 
     return redirect(request.referrer)
 
