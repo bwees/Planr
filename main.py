@@ -240,7 +240,7 @@ def edit_activity(uuid):
 
     if request.method == "POST" and request.form.get("name") != None:
 
-        del_activity(uuid1)
+        del_activity(uuid)
 
         name = request.form.get("name")
         time = request.form.get("time")
@@ -271,9 +271,7 @@ def edit_freetime(uuid):
 
     if request.method == "POST" and request.form.get("name") != None:
 
-        freetime = freetimesdb.search(where("uuid") == uuid)[0]
-
-        freetimesdb.remove(where('uuid') == uuid)
+        del_freetime(uuid)
 
         name = request.form.get("name")
         time = request.form.get("time")
@@ -303,9 +301,7 @@ def edit_assignment(uuid):
 
     if request.method == "POST" and request.form.get("name") != None:
 
-        assignment = assignmentdb.search(where("uuid") == uuid)[0]
-
-        assignmentdb.remove(where('uuid') == uuid)
+        del_assignment(uuid)
 
         assignmentName = request.form.get("name")
         className = request.form.get("class")
@@ -367,6 +363,12 @@ def del_freetime(uuid):
 @app.route('/del_activity/<string:uuid>', methods=['GET', 'POST'])
 def del_activity(uuid):    
     activitiesdb.remove(where('uuid') == uuid)
+
+    return redirect(request.referrer)
+
+@app.route('/del_assignment/<string:uuid>', methods=['GET', 'POST'])
+def del_assignment(uuid):    
+    assignmentdb.remove(where('uuid') == uuid)
 
     return redirect(request.referrer)
 
