@@ -4,13 +4,13 @@ from assignment import *
 from flask_table import Table, Col, ButtonCol
 from datetime import datetime, timedelta
 
-db = TinyDB('planr.json')
+assignmentdb = TinyDB('planr.json')
 
 app = Flask(__name__, template_folder="web/", static_folder="web/static/")
 
 
 def getAssignmentByDate(dateIn):
-    return db.search(where("dueDate")==dateIn)
+    return assignmentdb.search(where("dueDate")==dateIn)
     
 
 def next_weekday(d, weekday):
@@ -24,16 +24,24 @@ def widgetData():
     tomorrow_date = (datetime.now()+timedelta(days=1)).strftime("%Y-%m-%d")
 
     assignment = Query()
-    dueToday = db.search(assignment.dueDate==current_date)
+    dueToday = assignmentdb.search(assignment.dueDate==current_date)
 
     dueToday = [x for x in dueToday if x["status"] != Status.complete]
 
-    totalMinsToday = 0
+    workMins = 0
     for assignment in dueToday:
-        totalMinsToday += assignment["duration"]
+        workMins += assignment["duration"]
+
+    activityMins = 0
+    for assignment in dueToday:
+        workMins += assignment["duration"]
+
+    totalMins = 0
+    for assignment in dueToday:
+        workMins += assignment["duration"]
     
     assignment = Query()
-    dueTomorrow = db.search(assignment.dueDate==tomorrow_date)
+    dueTomorrow = assignmentdb.search(assignment.dueDate==tomorrow_date)
     dueTomorrow = [x for x in dueTomorrow if x["status"] != Status.complete]
 
     nextStart = next_weekday(datetime.now(), 0)
@@ -41,9 +49,9 @@ def widgetData():
 
     for single_date in (nextStart + timedelta(n) for n in range(5)):
         single_date = single_date.strftime("%Y-%m-%d")
-        dueNextWeek += db.search(assignment.dueDate==single_date)
+        dueNextWeek += assignmentdb.search(assignment.dueDate==single_date)
 
-    return dueToday, dueTomorrow, dueNextWeek, totalMinsToday
+    return dueToday, dueTomorrow, dueNextWeek, workMins, activityMins, totalMins
 
 
 def calcRings(totalTime,activityTime,workTime):
@@ -77,6 +85,7 @@ class AssignmentTable(Table):
     dueDate = Col("Due Date")
     status = Col('Status')
     edit = ButtonCol('Edit','edit_assignment', url_kwargs=dict(uuid="uuid"), td_html_attrs = {'class': 'btn-primary text-white text-bold'})
+    view = ButtonCol('View','view_assignment', url_kwargs=dict(uuid="uuid"), td_html_attrs = {'class': 'btn-secondary text-white text-bold'})
     done = ButtonCol('Mark As Done', 'mark_done', url_kwargs=dict(uuid="uuid"), td_html_attrs = {'class': 'btn-primary-green text-white text-bold'})
 
 class AssignmentTableHome(Table):
@@ -85,20 +94,30 @@ class AssignmentTableHome(Table):
     dueDate = Col("Due Date")
     edit = ButtonCol('View','view_assignment', url_kwargs=dict(uuid="uuid"), td_html_attrs = {'class': 'btn-secondary'})
     
+
+def getBarColor(status):
+    if status == Status.inProgress:
+        return "au-task__item--primary"
+    if status == Status.notStarted:
+        return "au-task__item--danger"
+    if status == Status.complete:
+        return "au-task__item--complete"
+
+
 @app.route('/')
 def index():
 
     
-    dueToday, dueTomorrow, dueNxtWk, totalMinsToday = widgetData()
+    dueToday, dueTomorrow, dueNextWeek, workMins, activityMins,  = widgetData()
 
     tags = {
-        "time_today": str(totalMinsToday)+"-"+str(totalMinsToday+10)+" mins",
+        "time_today": str(workMins)+"-"+str(workMins+10)+" mins",
         "today_due": len(dueToday),
         "tmrw_due": len(dueTomorrow),
         "nxt_due": len(dueNxtWk),
-        "pie_data": calcRings(60, 30, 10)[0],
-        "pie_tags": calcRings(60, 30, 10)[1],
-        "pie_dots": htmlString(calcRings(60, 30, 10)[1]),
+        "pie_data": calcRings(totalMins, workMins, activityMins)[0],
+        "pie_tags": calcRings(totalMins, workMins, activityMins)[1],
+        "pie_dots": htmlString(calcRings(totalMins, workMins, activityMins)[1]),
         "assignment_table": AssignmentTableHome(dueToday, html_attrs = {'class': 'table table-borderless table-striped table-earning'}).__html__()
     }
 
@@ -108,7 +127,7 @@ def index():
 @app.route("/assignments", methods=['GET', 'POST'])
 def assignment_list(action = None):
     print(action)
-    assignments = db.search(where("status")!= 1)
+    assignments = assignmentdb.search(where("status")!= 1)
 
     items = [assignmentFromDictionary(x) for x in assignments]
     items = [x for x in items if x.status != Status.complete]
@@ -132,7 +151,7 @@ def newAssignment():
         attachments = request.form.get("attachments")
 
         assignment = Assignment(assignmentName,className,typeName,dueDate,notes,duration,attachments)
-        db.insert(assignment.dictionary())
+        assignmentdbinsert(assignment.dictionary())
 
         return redirect("/assignments")
     else:
@@ -143,9 +162,9 @@ def edit_assignment(uuid):
 
     if request.method == "POST" and request.form.get("name") != None:
 
-        assignment = db.search(where("uuid") == uuid)[0]
+        assignment = assignmentdb.search(where("uuid") == uuid)[0]
 
-        db.remove(where('uuid') == uuid)
+        assignmentdbremove(where('uuid') == uuid)
 
         assignmentName = request.form.get("name")
         className = request.form.get("class")
@@ -159,12 +178,12 @@ def edit_assignment(uuid):
         attachments = request.form.get("attachments")
 
         assignment = Assignment(assignmentName,className,typeName,dueDate,notes,duration,attachments, status=assignment["status"], uuid=assignment["uuid"])
-        db.insert(assignment.dictionary())
+        assignmentdbinsert(assignment.dictionary())
 
-        return redirect("/assignments")
+        return redirect("/view_assignment/"+uuid)
     else:
         assignment = Query()
-        result = db.search(assignment.uuid == uuid)[0]
+        result = assignmentdb.search(assignment.uuid == uuid)[0]
 
         print(result)
 
@@ -181,16 +200,19 @@ def edit_assignment(uuid):
 
 @app.route('/view_assignment/<string:uuid>', methods=['GET', 'POST'])
 def view_assignment(uuid):
-    assignment = db.search(where("uuid") == uuid)[0]
+
+    assignment = assignmentdb.search(where("uuid") == uuid)[0]
 
     tags = {
         "name": assignment["assignmentName"],
         "class": assignment["className"],
         "type": assignment["typeName"],
+        "status": assignment["status"],
         "length": assignment["duration"],
         "notes": assignment["notes"],
         "date": assignment["dueDate"],
-        "uuid": assignment["uuid"]
+        "uuid": assignment["uuid"],
+        "bar_color": getBarColor(assignment["status"])
 
     }
 
@@ -200,9 +222,9 @@ def view_assignment(uuid):
 def mark_done(uuid):
     assignment = Query()
     
-    db.update({"status": Status.complete}, assignment.uuid == uuid)
+    assignmentdbupdate({"status": Status.complete}, assignment.uuid == uuid)
 
-    return redirect("/assignments")
+    return redirect(request.referrer)
 
 if __name__ == "__main__":
     app.run()
