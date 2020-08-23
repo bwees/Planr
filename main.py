@@ -117,7 +117,8 @@ def getBarColor(status):
         return "au-task__item--primary"
     if status == Status.notStarted:
         return "au-task__item--danger"
-    if status == Status.complete:        return "au-task__item--success"
+    if status == Status.complete:        
+        return "au-task__item--success"
 
 
 @app.route('/')
