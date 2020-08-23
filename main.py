@@ -240,9 +240,7 @@ def edit_activity(uuid):
 
     if request.method == "POST" and request.form.get("name") != None:
 
-        activity = activitiesdb.search(where("uuid") == uuid)[0]
-
-        activitiesdb.remove(where('uuid') == uuid)
+        del_activity(uuid1)
 
         name = request.form.get("name")
         time = request.form.get("time")
@@ -252,7 +250,7 @@ def edit_activity(uuid):
             duration = 20
 
 
-        activity = freeTime(name, duration, time, uuid=activity["uuid"])
+        activity = freeTime(name, duration, time)
         activitiesdb.insert(activity.dictionary())
 
         return redirect("/activities")
