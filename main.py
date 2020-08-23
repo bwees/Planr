@@ -4,9 +4,9 @@ from assignment import *
 from flask_table import Table, Col, ButtonCol
 from datetime import datetime, timedelta
 
-assignmentdb = TinyDB('planr.json')
-activitiesdb = TinyDB('act.json')
-freetimesdb = TinyDB('free.json')
+assignmentdb = TinyDB('db/planr.json')
+activitiesdb = TinyDB('db/act.json')
+freetimesdb = TinyDB('db/free.json')
 
 app = Flask(__name__, template_folder="web/", static_folder="web/static/")
 
@@ -14,7 +14,6 @@ app = Flask(__name__, template_folder="web/", static_folder="web/static/")
 def getAssignmentByDate(dateIn):
     return assignmentdb.search(where("dueDate")==dateIn)
     
-
 def next_weekday(d, weekday):
     days_ahead = weekday - d.weekday()
     if days_ahead <= 0: # Target day already happened this week
@@ -31,16 +30,16 @@ def widgetData():
     dueToday = [x for x in dueToday if x["status"] != Status.complete]
 
     freeMins = 0
-    for assignment in dueToday:
-        freeMins += assignment["duration"]
+    for freetime in freetimesdb.all():
+        freeMins += int(freetime["duration"])
 
     activityMins = 0
-    for assignment in dueToday:
-        activityMins += assignment["duration"]
+    for activity in activitiesdb.all():
+        activityMins += activity["duration"]
 
-    totalMins = 0
+    workMins = 0
     for assignment in dueToday:
-        totalMins += assignment["duration"]
+        workMins += assignment["duration"]
     
     assignment = Query()
     dueTomorrow = assignmentdb.search(assignment.dueDate==tomorrow_date)
@@ -53,15 +52,13 @@ def widgetData():
         single_date = single_date.strftime("%Y-%m-%d")
         dueNextWeek += assignmentdb.search(assignment.dueDate==single_date)
 
-    return dueToday, dueTomorrow, dueNextWeek, freeMins, activityMins, totalMins
+    return dueToday, dueTomorrow, dueNextWeek, freeMins, activityMins, workMins
 
-
-def calcRings(totalTime,activityTime,freeTime):
-    if activityTime+freeTime>totalTime:
+def calcRings(freeTime,workTime,activityTime):
+    if activityTime+workTime>freeTime:
         return [1], ["Time Used"]
     else:
-        return [freeTime,activityTime,totalTime-activityTime-freeTime], ["free Time", "Activity Time", "Free Time"]
-
+        return [workTime,activityTime,freeTime-activityTime-workTime], ["Work Time", "Activity Time", "Free Time"]
 
 def htmlString(tags):
     htmlString = ""
@@ -119,16 +116,18 @@ def getBarColor(status):
 @app.route('/')
 def index():
 
-    dueToday, dueTomorrow, dueNextWeek, freeMins, activityMins, totalMins = widgetData()
+    dueToday, dueTomorrow, dueNextWeek, freeMins, activityMins, workMins = widgetData()
+
+    print(calcRings(freeMins, workMins, activityMins))
 
     tags = {
         "time_today": str(freeMins)+"-"+str(freeMins+10)+" mins",
         "today_due": len(dueToday),
         "tmrw_due": len(dueTomorrow),
         "nxt_due": len(dueNextWeek),
-        "pie_data": calcRings(totalMins, freeMins, activityMins)[0],
-        "pie_tags": calcRings(totalMins, freeMins, activityMins)[1],
-        "pie_dots": htmlString(calcRings(totalMins, freeMins, activityMins)[1]),
+        "pie_data": calcRings(freeMins, workMins, activityMins)[0],
+        "pie_tags": calcRings(freeMins, workMins, activityMins)[1],
+        "pie_dots": htmlString(calcRings(freeMins, workMins, activityMins)[1]),
         "assignment_table": AssignmentTableHome(dueToday, html_attrs = {'class': 'table table-borderless table-striped table-earning'}).__html__()
     }
 
@@ -147,6 +146,17 @@ def assignment_list(action = None):
     return render_template("assignment_list.html", assignment_table=table.__html__())
 
 
+@app.route("/activities", methods=['GET', 'POST'])
+def activity_list(action = None):
+    
+    activities = activitiesdb.all()
+
+    items = [freeTimeFromDictionary(x) for x in activities]
+
+    table = freeTimeTable(items, html_attrs = {'class': 'table table-data2'})
+
+    return render_template("activity_list.html", freetime_table=table.__html__())
+
 @app.route("/free_times", methods=['GET', 'POST'])
 def free_time_list(action = None):
     
@@ -163,7 +173,7 @@ def free_time_list(action = None):
 def newfreeTime():
     if request.method == 'POST':
         name = request.form.get("name")
-        duration = request.form.get("class")
+        duration = request.form.get("duration")
         time = request.form.get("time")
         
         if duration == None: 
@@ -175,6 +185,25 @@ def newfreeTime():
         return redirect("/free_times")
     else:
         return render_template("add_freetime.html")
+
+
+@app.route('/add_activity', methods=['GET', 'POST'])
+def newActivity():
+    if request.method == 'POST':
+        name = request.form.get("name")
+        duration = request.form.get("duration")
+        time = request.form.get("time")
+        
+        if duration == None: 
+            duration = 20
+
+        activity = freeTime(name, duration, time)
+        activitiesdb.insert(activity.dictionary())
+
+        return redirect("/activities")
+    else:
+        return render_template("add_activity.html")
+
 
 
 @app.route('/add_assignment', methods=['GET', 'POST'])
@@ -253,16 +282,19 @@ def view_assignment(uuid):
         "date": assignment["dueDate"],
         "uuid": assignment["uuid"],
         "bar_color": getBarColor(assignment["status"])
-
     }
 
     return render_template("assignment_detail.html", **tags)
 
 @app.route('/del_worktime/<string:uuid>', methods=['GET', 'POST'])
-def del_freetime(uuid):
-    freetime = Query()
-    
+def del_freetime(uuid):    
     freetimesdb.remove(where('uuid') == uuid)
+
+    return redirect(request.referrer)
+
+@app.route('/del_activity/<string:uuid>', methods=['GET', 'POST'])
+def del_activity(uuid):    
+    activitiesdb.remove(where('uuid') == uuid)
 
     return redirect(request.referrer)
 
