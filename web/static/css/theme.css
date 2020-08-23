@@ -3154,9 +3154,9 @@ section {
 .overview-item--c1 {
     height: 125px;
 
-    background-image: -moz-linear-gradient(90deg, #3f5efb 0%, #3cbdbd 100%);
-    background-image: -webkit-linear-gradient(90deg, #3f5efb 0%, #3cbdbd 100%);
-    background-image: -ms-linear-gradient(90deg, #3f5efb 0%, #3cbdbd 100%);
+    background-image: -moz-linear-gradient(90deg, #3f5efb 0%, #3cbdbd 60%);
+    background-image: -webkit-linear-gradient(90deg, #3f5efb 0%, #3cbdbd 60%);
+    background-image: -ms-linear-gradient(90deg, #3f5efb 0%, #3cbdbd 60%);
 } 
 
 .overview-item--c2 {
@@ -3175,7 +3175,7 @@ section {
     background-image: -ms-linear-gradient(90deg, #66CDAA 0%, #48D1CC 100%);
 }
 
-.overview-item--c3 {
+.overview-item--c4 {
     height: 125px;
 
     background-image: -moz-linear-gradient(90deg, #32e0c4 0%, #0dceda 100%);
