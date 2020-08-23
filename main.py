@@ -371,10 +371,18 @@ def del_activity(uuid):
     return redirect(request.referrer)
 
 @app.route('/set_status/<string:uuid>/<string:newStatus>', methods=['GET', 'POST'])
-def mark_done(uuid, newStatus):
+def set_status(uuid, newStatus="Complete"):
     assignment = Query()
     
     assignmentdb.update({"status": newStatus}, assignment.uuid == uuid)
+
+    return redirect(request.referrer)
+
+@app.route('/mark_done/<string:uuid>', methods=['GET', 'POST'])
+def mark_done(uuid, newStatus="Complete"):
+    assignment = Query()
+    
+    assignmentdb.update({"status": "Complete"}, assignment.uuid == uuid)
 
     return redirect(request.referrer)
 
