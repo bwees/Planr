@@ -466,11 +466,11 @@ section {
 }
 
 .au-btn--blue2 {
-    background: #32e0c4;
+    background: #0dceda;
 }
 
 .au-btn--blue2:hover {
-    background: #32e0c4;
+    background: #0dceda;
 }
 
 .au-btn--block {
@@ -484,15 +484,15 @@ section {
 }
 
 .au-btn--blue {
-    background: #32e0c4;
+    background: #0dceda;
 }
 
 .au-btn--green {
-    background: #63c76a;
+    background: #32e0c4;
 }
 
 .au-btn--green:hover {
-    background: #59bd60;
+    background: #2ec9c2;
 }
 
 .au-btn-plus {
@@ -4135,15 +4135,15 @@ section {
 }
 
 .dot--blue {
-    background: #00b5e9;
+    background: #0dceda;
 }
 
 .dot--green {
-    background: #00ad5f;
+    background: #32e0c4;
 }
 
 .dot--red {
-    background: #fa4251;
+    background: #ff453a;
 }
 
 .chart-note-wrap {
@@ -5026,7 +5026,7 @@ section {
 }
 
 .statistic__item--green {
-    background: #00b26f;
+    background: #32e0c4;
 }
 
 .statistic__item--orange {
@@ -5034,11 +5034,11 @@ section {
 }
 
 .statistic__item--blue {
-    background: #00b5e9;
+    background: #0dceda;
 }
 
 .statistic__item--red {
-    background: #fa4251;
+    background: #ff453a;
 }
 
 /* ----- Statistic 2 ----- */
@@ -14586,7 +14586,7 @@ section {
 }
 
 .bg-overlay--blue {
-    background: rgba(49, 89, 253, 0.9);
+    background: #0dceda;
 }
 
 .bg-c1 {
@@ -14663,18 +14663,18 @@ section {
 
 .btn-primary-red:hover{
     color: #fff;
-    background-color: #c0362f;
-    border-color: #c0362f;
+    background-color: #d14030;
+    border-color: #d14030;
 }
 
 .btn-primary-green{
     color: #fff;
-    background-color: #34c734;
-    border-color: #34c734;
+    background-color: #32e0c4;
+    border-color: #32e0c4;
 }
 
 .btn-primary-green:hover{
     color: #fff;
-    background-color: #2ba72b;
-    border-color: #2ba72b;
+    background-color: #2ec9c2;
+    border-color: #2ec9c2;
 }
